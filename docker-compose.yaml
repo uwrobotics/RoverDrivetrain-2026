@@ -1,0 +1,30 @@
+services:
+  diff_drive:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ROS_DISTRO: humble
+    image: diff_drive_controller:latest
+    container_name: diff_drive
+    privileged: true
+    network_mode: host
+    volumes:
+      # Mount CAN interface
+      - /dev:/dev
+      # Mount DDS config for network discovery
+      - ./config/fastdds.xml:/ros2_ws/fastdds.xml:ro
+    environment:
+      # ROS2 Network Configuration
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+      - ROS_LOCALHOST_ONLY=0
+      # FastDDS configuration for network discovery
+      - FASTRTPS_DEFAULT_PROFILES_FILE=/ros2_ws/fastdds.xml
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+    command: ros2 launch diff_drive diff_drive.launch.py
+
+# Usage:
+#   Build:     docker-compose build
+#   Run:       docker-compose up
+#   Mock mode: docker-compose run diff_drive ros2 launch diff_drive diff_drive.launch.py use_mock_hardware:=true
+#   Shell:     docker-compose run diff_drive bash

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- 6-wheel differential drive robot for UWRT -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="diff_drive_robot">
+
+  <!-- Arguments -->
+  <xacro:arg name="prefix" default=""/>
+  <xacro:arg name="use_mock_hardware" default="false"/>
+  <xacro:arg name="mock_sensor_commands" default="false"/>
+  <xacro:arg name="can_interface" default="can0"/>
+
+  <!-- Include robot description -->
+  <xacro:include filename="$(find diff_drive)/description/urdf/diff_drive_description.urdf.xacro"/>
+
+  <!-- Include ros2_control configuration -->
+  <xacro:include filename="$(find diff_drive)/description/urdf/diff_drive.ros2_control.xacro"/>
+
+  <!-- Instantiate robot description -->
+  <xacro:diff_drive_description prefix="$(arg prefix)"/>
+
+  <!-- Instantiate ros2_control -->
+  <xacro:diff_drive_ros2_control
+    name="DiffDriveSystem"
+    prefix="$(arg prefix)"
+    use_mock_hardware="$(arg use_mock_hardware)"
+    mock_sensor_commands="$(arg mock_sensor_commands)"
+    can_interface="$(arg can_interface)"/>
+
+</robot>

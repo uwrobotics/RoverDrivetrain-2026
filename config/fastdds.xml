@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dds xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
+    <profiles>
+        <!-- Default participant profile for network discovery -->
+        <participant profile_name="default_participant" is_default_profile="true">
+            <rtps>
+                <!-- Use UDP for transport -->
+                <useBuiltinTransports>true</useBuiltinTransports>
+
+                <!-- Discovery configuration -->
+                <builtin>
+                    <discovery_config>
+                        <!-- Simple discovery for LAN/WiFi -->
+                        <discoveryProtocol>SIMPLE</discoveryProtocol>
+                        <leaseDuration>
+                            <sec>10</sec>
+                            <nanosec>0</nanosec>
+                        </leaseDuration>
+                        <leaseAnnouncement>
+                            <sec>3</sec>
+                            <nanosec>0</nanosec>
+                        </leaseAnnouncement>
+                        <initialAnnouncements>
+                            <count>5</count>
+                            <period>
+                                <sec>1</sec>
+                                <nanosec>0</nanosec>
+                            </period>
+                        </initialAnnouncements>
+                    </discovery_config>
+
+                    <!-- Multicast locators for discovery -->
+                    <metatrafficMulticastLocatorList>
+                        <locator>
+                            <udpv4>
+                                <address>239.255.0.1</address>
+                                <port>7400</port>
+                            </udpv4>
+                        </locator>
+                    </metatrafficMulticastLocatorList>
+                </builtin>
+
+                <!-- Allow communication on all interfaces -->
+                <defaultUnicastLocatorList>
+                    <locator>
+                        <udpv4>
+                            <address>0.0.0.0</address>
+                            <port>0</port>
+                        </udpv4>
+                    </locator>
+                </defaultUnicastLocatorList>
+            </rtps>
+        </participant>
+    </profiles>
+</dds>
