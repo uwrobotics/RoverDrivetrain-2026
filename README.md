@@ -1,6 +1,18 @@
-# UWRT Drivetrain 2026
+# RoverDrivetrain-2026
+
+## Introduction
 
 6-wheel differential drive controller using ROS2 Control and ODrive motor controllers.
+
+## 3D Model Pre-processing
+
+> Lessons Learned:
+> - URDF Exporter from Solidworks are not reliable. (Assembly link feature does not the actual stl file origin)
+> - STL File too Dense for quick Rendering
+
+**Solutions**
+
+- MeshLab for stl file down resolution
 
 ## ODrive Integration
 
